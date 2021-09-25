@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="20dp">
+            <TextView
+                android:id="@+id/item_list_cliente_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:maxLength="40"
+                android:textSize="18sp"
+                android:text="absfjkabsdf ashjf asfga sfyug agsdfay"
+                tools:ignore="RtlCompat" />
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/list_item_button"
+                android:background="@drawable/round_corners"
+                android:src="@drawable/ic_baseline_add_circle_48">
+            </ImageButton>
+    </LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

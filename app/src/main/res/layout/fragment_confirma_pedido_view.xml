@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/material_on_primary_emphasis_medium"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@color/transparent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="CONFIRMAÇĀO DO PEDIDO"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:paddingBottom="10dp"
+                android:textSize="16dp"
+                android:text="POR FAVOR, CONFIRME OS DADOS DO PEDIDO ANTES DE FINALIZAR"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:paddingHorizontal="20dp"
+                android:maxLines="3"
+                android:maxLength="200"
+                android:text="Nenhum produto selecionado!"
+                android:gravity="center_vertical"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="end"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+                <Button
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:text="CANCELAR"
+                    android:id="@+id/cancel_button"
+                    android:shadowRadius="0"
+                    android:shadowColor="@color/transparent"
+                    android:backgroundTint="@color/transparent"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:textColor="@color/black" />
+                <Button
+                    android:layout_width="130dp"
+                    android:layout_height="40dp"
+                    android:text="finalizar"
+                    android:id="@id/confirm_button"
+                    android:shadowColor="@color/transparent"
+                    android:backgroundTint="@color/transparent"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:textColor="#FF9900" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>
