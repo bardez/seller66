@@ -1,0 +1,10 @@
+node_modules
+.DS_Store
+
+assets/
+.env
+logs/*
+dist
+api-dist.tgz
+.env.production
+.env.development
