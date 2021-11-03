@@ -9,18 +9,9 @@ import {
 // import schedulerController from '../scheduler/scheduler.controller'
 
 const fields = [
-    'product_id',
-    'auction_id',
-    'status_id',
-    'buy_user_id',
-    'code',
-    'sold',
-    'price',
-    'target_price',
-    'type',
-    'sold_at',
-    'start',
-    'end',
+    'client_id',
+    'date',
+    'status'
 ]
 
 // const getAll = async (req, res) =>{
@@ -69,7 +60,9 @@ const fields = [
 
 const save = async (req, res) =>{
     try {
-        let { data: invoiceData } = req.body;
+        const invoiceData = req.body;
+
+        invoiceData.date = new Date();
 
         const invoice = await InvoicesModel.create(invoiceData, { fields });
 
