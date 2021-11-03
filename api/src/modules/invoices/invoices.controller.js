@@ -1,24 +1,11 @@
 import {
-    LotsModel,
-    ProductsModel,
-    AuctionsModel,
-    StatusModel,
-    ProductMediaModel,
-    CustomFieldsProductModel,
-    CustomFieldsModel,
-    BidsModel,
-    UsersModel,
-    Sequelize
+    InvoicesModel
 } from '../../models'
 import HTTP from '../../utils/http_headers'
 import {
     resultSuccess,
     resultError,
-    resultEmpty
 } from '../../utils/response';
-import { paginatedResults } from '../../utils/paginatedResults';
-import { STATUS } from '../../utils/constants';
-import moment from 'moment';
 // import schedulerController from '../scheduler/scheduler.controller'
 
 const fields = [
@@ -85,6 +72,7 @@ const save = async (req, res) =>{
         let { data: invoiceData } = req.body;
 
         const invoice = await InvoicesModel.create(invoiceData, { fields });
+
         resultSuccess('Dados salvos com sucesso.', res)(invoice);
     } catch (error) {
         console.log('InvoiceController.save - Erro ao criar registro.', error);
