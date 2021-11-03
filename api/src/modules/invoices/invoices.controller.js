@@ -84,25 +84,23 @@ const save = async (req, res) =>{
     try {
         let { data: invoiceData } = req.body;
 
-        const client = await ClientsModel.findByPk(invoiceData.client_id);
-
         const invoice = await InvoicesModel.create(invoiceData, { fields });
         resultSuccess('Dados salvos com sucesso.', res)(invoice);
     } catch (error) {
-        console.log('LotsController.save - Erro ao criar registro.', error);
+        console.log('InvoiceController.save - Erro ao criar registro.', error);
         resultError(HTTP.INTERNAL_SERVER_ERROR, 'Erro ao criar registro.', res)(error);
     }
 }
 
 const update = async (req, res) =>{
     try {
-        const lot = await LotsModel.findOne({ where: { id: req.params.id } });
+        const invoice = await InvoicesModel.findOne({ where: { id: req.params.id } });
 
-        if(lot) {
-            let { data: lotData } = req.body;
+        if(invoice) {
+            let { data: invoiceData } = req.body;
             
-            await lot.update(lotData, { fields });
-            resultSuccess('Dados atualizados com sucesso.', res)(lot);
+            await invoice.update(invoiceData, { fields });
+            resultSuccess('Dados atualizados com sucesso.', res)(invoice);
         }
         
     } catch (error) {

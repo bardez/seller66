@@ -20,13 +20,10 @@ public class ConfirmacaoActivity extends AppCompatActivity {
 
     private void initializeView() {
         Button btn_nova_rota = findViewById(R.id.btn_nova_rota);
-        btn_nova_rota.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
+        btn_nova_rota.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         });
     }
 }

@@ -53,7 +53,7 @@ public class ListaClienteAdapter extends BaseAdapter {
         titleItemLista.setText(cliente.getNome());
 
         contentItemLista = view.findViewById(R.id.item_list_cliente_content);
-        contentItemLista.setText(cliente.getCidade());
+        contentItemLista.setText(String.format("%s - %s", cliente.getEndereco(), cliente.getEstado()));
         return view;
     }
 }

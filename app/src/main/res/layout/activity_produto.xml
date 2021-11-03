@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.cliente.ClienteActivity">
+    tools:context=".ui.produto.ProdutoActivity">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/lista_cliente"
+                android:id="@+id/lista_produto"
                 tools:listitem="@layout/list_item_produto"/>
         </LinearLayout>
         <LinearLayout

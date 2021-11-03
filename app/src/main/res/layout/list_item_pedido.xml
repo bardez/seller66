@@ -14,7 +14,7 @@
         android:paddingHorizontal="10dp"
         android:paddingVertical="20dp">
             <TextView
-                android:id="@+id/item_list_cliente_title"
+                android:id="@+id/item_list_item_prod_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="textStart"
@@ -24,12 +24,5 @@
                 android:textSize="14sp"
                 android:text="absfjkabsdf ashjf asfga sfyug agsdfay"
                 tools:ignore="RtlCompat" />
-            <ImageButton
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:id="@+id/list_item_button"
-                android:background="@drawable/round_corners"
-                android:src="@drawable/ic_baseline_add_circle_48">
-            </ImageButton>
     </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -5,7 +5,9 @@ import java.io.Serializable;
 public class Cliente implements Serializable {
     private int id;
     private String nome;
-    private String cidade;
+    private String telefone;
+    private String endereco;
+    private String estado;
 
     public int getId() {
         return id;
@@ -23,11 +25,27 @@ public class Cliente implements Serializable {
         this.nome = nome;
     }
 
-    public String getCidade() {
-        return cidade;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }

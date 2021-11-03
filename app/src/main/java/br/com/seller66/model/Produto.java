@@ -7,6 +7,7 @@ public class Produto implements Serializable {
     private String descricao;
     private int status;
     private String imagem_url;
+    private float value;
 
     public int getId() {
         return id;
@@ -38,5 +39,13 @@ public class Produto implements Serializable {
 
     public void setImagem_url(String imagem_url) {
         this.imagem_url = imagem_url;
+    }
+
+    public float getValue() {
+        return value;
+    }
+
+    public void setValue(float value) {
+        this.value = value;
     }
 }

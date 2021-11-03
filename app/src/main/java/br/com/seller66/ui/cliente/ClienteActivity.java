@@ -15,6 +15,8 @@ import br.com.seller66.R;
 import br.com.seller66.adapter.ListaClienteAdapter;
 import br.com.seller66.model.Cliente;
 import br.com.seller66.model.Rota;
+import br.com.seller66.tasks.GetClientsTask;
+import br.com.seller66.tasks.GetProductsTask;
 import br.com.seller66.ui.produto.ProdutoActivity;
 
 public class ClienteActivity extends AppCompatActivity {
@@ -31,9 +33,6 @@ public class ClienteActivity extends AppCompatActivity {
         Intent intent = getIntent();
         rota = (Rota) intent.getSerializableExtra("data");
 
-        if(rota != null)
-            clientes = rota.getClienteList();
-
         Toolbar toolbar = findViewById(R.id.toolbar);
 
         toolbar.setTitle(String.format("Clientes - %s", rota.getName()));
@@ -46,15 +45,20 @@ public class ClienteActivity extends AppCompatActivity {
     private void initilizeView() {
         lista_clientes = findViewById(R.id.lista_cliente);
         lista_clientes.setAdapter(new ListaClienteAdapter(ClienteActivity.this, clientes));
-        lista_clientes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        lista_clientes.setOnItemClickListener((adapterView, view, i, l) -> {
                 Cliente itemClient = (Cliente) adapterView.getItemAtPosition(i);
                 Intent intent = new Intent(ClienteActivity.this, ProdutoActivity.class);
                 intent.putExtra("rota", rota);
                 intent.putExtra("cliente", itemClient);
                 startActivity(intent);
-            }
         });
+
+        new GetClientsTask(this, lista_clientes, String.valueOf(rota.getId())).execute();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new GetClientsTask(this, lista_clientes, String.valueOf(rota.getId())).execute();
     }
 }
