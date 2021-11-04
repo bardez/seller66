@@ -79,6 +79,7 @@ const save = async (req, res) =>{
 const upsert = async (req, res) =>{
   try {
       const invoiceItemsData = req.body;
+      invoiceItemsData.invoice_id = req.params.invoice_id;
       const invoiceItems = await InvoiceItemsModel.findOne({ where: { invoice_id: req.params.id, product_id: invoiceItemsData.product_id } });
 
       if(invoiceItems) {    

@@ -28,15 +28,13 @@ import br.com.seller66.ui.produto.ProdutoActivity;
 public class PostItemPedidoTask extends AsyncTask<String, String, String> {
 
     Activity pContext;
-    String pedido_id;
 
     public PostItemPedidoTask(Activity context, String id, ItemPedido itemPedido)
     {
         pContext = context;
-        pedido_id = id;
         AsyncTask.execute(() -> {
             try{
-                URL endpoint = new URL("http://api.dev3s.com.br:8083/invoice-items/"+pedido_id);
+                URL endpoint = new URL("http://api.dev3s.com.br:8083/invoice-items/"+id);
                 HttpURLConnection conexao = (HttpURLConnection) endpoint.openConnection();
                 conexao.setRequestProperty("User-Agent","seller66");
                 conexao.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
