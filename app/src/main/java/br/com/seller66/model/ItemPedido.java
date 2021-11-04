@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 public class ItemPedido implements Serializable {
     private Produto produto;
-    private int quantidade;
+    private float quantidade;
+    private int invoiceId;
 
     public Produto getProduto() {
         return produto;
@@ -14,11 +15,19 @@ public class ItemPedido implements Serializable {
         this.produto = produto;
     }
 
-    public int getQuantidade() {
+    public float getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
+    public void setQuantidade(float quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public int getInvoiceId() {
+        return invoiceId;
+    }
+
+    public void setInvoiceId(int invoiceId) {
+        this.invoiceId = invoiceId;
     }
 }

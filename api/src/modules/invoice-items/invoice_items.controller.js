@@ -36,7 +36,7 @@ const getById = async (req, res) =>{
     if(req.params.invoice_id > 0){
         const result = await sequelize.query(`
           SELECT
-              * 
+              it.id, it.invoice_id, it.product_id, it.quantity, p.name, p.active, p.value 
           FROM
               invoice_items it
           INNER JOIN products p ON
