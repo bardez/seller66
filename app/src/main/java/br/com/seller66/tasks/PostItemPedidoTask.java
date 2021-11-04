@@ -43,7 +43,7 @@ public class PostItemPedidoTask extends AsyncTask<String, String, String> {
                 conexao.setRequestProperty("Accept", "application/json");
                 conexao.setDoOutput(true);
                 conexao.setDoInput(true);
-                conexao.setRequestMethod("POST");
+                conexao.setRequestMethod("PUT");
                 String jsonInputString = "{\"product_id\": "+ itemPedido.getProduto().getId()+", \"quantity\": "+itemPedido.getQuantidade()+"}";
                 try(OutputStream os = conexao.getOutputStream()) {
                     byte[] input = jsonInputString.getBytes("UTF-8");

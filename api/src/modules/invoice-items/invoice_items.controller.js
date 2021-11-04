@@ -81,13 +81,13 @@ const save = async (req, res) =>{
 const upsert = async (req, res) =>{
   try {
       const invoiceItemsData = req.body;
-      const invoiceItems = await InvoicesItemsModel.findOne({ where: { invoice_id: req.params.id, product_id: invoiceItemsData.product_id } });
+      const invoiceItems = await InvoiceItemsModel.findOne({ where: { invoice_id: req.params.id, product_id: invoiceItemsData.product_id } });
 
       if(invoiceItems) {    
           await invoiceItems.update(invoiceItemsData, { fields });
           resultSuccess('Dados atualizados com sucesso.', res)(invoiceItems);
       } else {
-        const invoiceItem = await InvoicesModel.create(invoiceItemData, { fields });
+        const invoiceItem = await InvoiceItemsModel.create(invoiceItemData, { fields });
         resultSuccess('Dados salvos com sucesso.', res)(invoiceItem);
       }
   } catch (error) {
