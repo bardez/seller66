@@ -116,4 +116,8 @@ public class ProdutoActivity extends AppCompatActivity {
         });
         confirmationAlert.show();
     }
+
+    public String getPedidoId() {
+        return String.valueOf(pedido.getId());
+    }
 }

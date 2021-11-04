@@ -19,18 +19,18 @@ import br.com.seller66.model.Cliente;
 import br.com.seller66.model.ItemPedido;
 import br.com.seller66.model.Pedido;
 import br.com.seller66.model.Produto;
+import br.com.seller66.tasks.GetItemPedidoTask;
 import br.com.seller66.ui.produto.ProdutoActivity;
 
 public class ListaProdutoAdapter extends BaseAdapter {
 
     private Context context;
     private List<Produto> produtos;
-    private int currentQuantity = 0;
+    private float currentQuantity = 0;
     private EditText editTextQuantidade;
     private TextView titleItemLista;
     private TextView textDescricaoProduto;
     private ImageButton addButton;
-    private List<ItemPedido> itensPedido = new ArrayList<>();
     public ListaProdutoAdapter(Context context, List<Produto> produtos){
         this.context = context;
         this.produtos = produtos;
@@ -69,25 +69,27 @@ public class ListaProdutoAdapter extends BaseAdapter {
     }
 
     private void callQuantityModal(Produto produto) {
-
         AlertDialog quantityAlert = new AlertDialog.Builder(context).create();
         LayoutInflater factory = LayoutInflater.from(context);
         final View addProdutoView = factory.inflate(R.layout.fragment_add_produto_view, null);
         quantityAlert.setView(addProdutoView);
         textDescricaoProduto = addProdutoView.findViewById(R.id.product_description);
-        textDescricaoProduto.setText(String.format("%s \nR$%s", produto.getDescricao(), String.format("%.2f",produto.getValue()).replace(".", ",")));
+        textDescricaoProduto.setText(String.format("%s \nR$%s", produto.getDescricao(), String.format("%.2f", produto.getValue()).replace(".", ",")));
         editTextQuantidade = addProdutoView.findViewById(R.id.edittext_quantidade);
-        Stream<ItemPedido> filter = itensPedido.stream().parallel()
-                .filter(i -> (i.getProduto().getId() == produto.getId()));
-        if(filter.count() > 0){
-            ItemPedido it = itensPedido.stream().parallel()
-                    .filter(i -> (i.getProduto().getId() == produto.getId())).findAny().get();
-            currentQuantity = it.getQuantidade();
-        } else {
+//        Stream<ItemPedido> filter = itensPedido.stream().parallel()
+//                .filter(i -> (i.getProduto().getId() == produto.getId()));
+//        if(filter.count() > 0){
+//            ItemPedido it = itensPedido.stream().parallel()
+//                    .filter(i -> (i.getProduto().getId() == produto.getId())).findAny().get();
+//            currentQuantity = it.getQuantidade();
+//        } else {
             currentQuantity = 0;
-        }
+//        }
 
         editTextQuantidade.setText(String.valueOf(currentQuantity));
+
+        String pedido_id = ((ProdutoActivity)context).getPedidoId();
+        new GetItemPedidoTask(this, pedido_id).execute();
 
         addProdutoView.findViewById(R.id.plus).setOnClickListener(v -> {
             currentQuantity += 1;
@@ -112,5 +114,10 @@ public class ListaProdutoAdapter extends BaseAdapter {
             quantityAlert.dismiss();
         });
         quantityAlert.show();
+    }
+
+    public void setCurrentItemPedido(ItemPedido itemPedido) {
+        currentQuantity = itemPedido.getQuantidade();
+        editTextQuantidade.setText(String.valueOf(currentQuantity));
     }
 }
