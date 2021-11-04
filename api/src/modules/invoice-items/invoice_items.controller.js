@@ -86,7 +86,7 @@ const upsert = async (req, res) =>{
           await invoiceItems.update(invoiceItemsData, { fields });
           resultSuccess('Dados atualizados com sucesso.', res)(invoiceItems);
       } else {
-        const invoiceItem = await InvoiceItemsModel.create(invoiceItemData, { fields });
+        const invoiceItem = await InvoiceItemsModel.create(invoiceItemsData, { fields });
         resultSuccess('Dados salvos com sucesso.', res)(invoiceItem);
       }
   } catch (error) {
