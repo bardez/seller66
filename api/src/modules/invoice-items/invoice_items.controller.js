@@ -63,24 +63,12 @@ const getById = async (req, res) =>{
     }
 }
 
-const save = async (req, res) =>{
-  try {
-      const invoiceItemData = req.body;
-
-      const invoiceItem = await InvoicesModel.create(invoiceItemData, { fields });
-
-      resultSuccess('Dados salvos com sucesso.', res)(invoiceItem);
-  } catch (error) {
-      console.log('InvoiceItemsController.save - Erro ao criar registro.', error);
-      resultError(HTTP.INTERNAL_SERVER_ERROR, 'Erro ao criar registro.', res)(error);
-  }
-}
-
 const upsert = async (req, res) =>{
   try {
       const invoiceItemsData = req.body;
       invoiceItemsData.invoice_id = req.params.invoice_id;
-      const invoiceItems = await InvoiceItemsModel.findOne({ where: { invoice_id: req.params.id, product_id: invoiceItemsData.product_id } });
+      console.log('InvoicesItemsController.upsert',invoiceItemsData);
+      const invoiceItems = await InvoiceItemsModel.findOne({ where: { invoice_id: req.params.invoice_id, product_id: invoiceItemsData.product_id } });
 
       if(invoiceItems) {    
           await invoiceItems.update(invoiceItemsData, { fields });
