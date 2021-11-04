@@ -86,11 +86,12 @@ const upsert = async (req, res) =>{
           await invoiceItems.update(invoiceItemsData, { fields });
           resultSuccess('Dados atualizados com sucesso.', res)(invoiceItems);
       } else {
+        console.log('InvoicesItemsController.save',invoiceItemsData);
         const invoiceItem = await InvoiceItemsModel.create(invoiceItemsData, { fields });
         resultSuccess('Dados salvos com sucesso.', res)(invoiceItem);
       }
   } catch (error) {
-      console.log('InvoicesItemsController.update - Erro ao criar registro.', error);
+      console.log('InvoicesItemsController.upsert - Erro ao criar registro.', error);
       resultError(HTTP.INTERNAL_SERVER_ERROR, 'Erro ao atualizar registro.', res)(error);
   }
 }
