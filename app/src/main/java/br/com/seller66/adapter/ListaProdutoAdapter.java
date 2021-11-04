@@ -19,6 +19,7 @@ import br.com.seller66.model.Cliente;
 import br.com.seller66.model.ItemPedido;
 import br.com.seller66.model.Pedido;
 import br.com.seller66.model.Produto;
+import br.com.seller66.ui.produto.ProdutoActivity;
 
 public class ListaProdutoAdapter extends BaseAdapter {
 
@@ -106,7 +107,7 @@ public class ListaProdutoAdapter extends BaseAdapter {
             ItemPedido _itemPedido = new ItemPedido();
             _itemPedido.setProduto(produto);
             _itemPedido.setQuantidade(currentQuantity);
-            itensPedido.add(_itemPedido);
+            ((ProdutoActivity)context).setItemPedido(_itemPedido);
             currentQuantity = 0;
             quantityAlert.dismiss();
         });

@@ -27,6 +27,8 @@ import br.com.seller66.model.Pedido;
 import br.com.seller66.model.Produto;
 import br.com.seller66.model.Rota;
 import br.com.seller66.tasks.GetProductsTask;
+import br.com.seller66.tasks.PostItemPedidoTask;
+import br.com.seller66.tasks.PostPedidoTask;
 import br.com.seller66.ui.cliente.ClienteActivity;
 import br.com.seller66.ui.confirmacao.ConfirmacaoActivity;
 import br.com.seller66.utils.IAsyncResponse;
@@ -54,20 +56,26 @@ public class ProdutoActivity extends AppCompatActivity {
         rota = (Rota) intent.getSerializableExtra("rota");
 
         pedido.setCliente_id(cliente.getId());
-        pedido.setId(1);
         Date date = new Date();
         pedido.setData_pedido(date);
         pedido.setRota_id(rota.getId());
         pedido.setItemList(itensPedido);
+        pedido.setStatus("A");
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-
-        toolbar.setTitle(String.format("Pedido:  %s", pedido.getId()));
-        setSupportActionBar(toolbar);
+        new PostPedidoTask(this, pedido).execute();
 
         initilizeView();
     }
 
+    public void setToolbar(String pedidoId){
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle(String.format("Pedido:  %s", pedidoId));
+        setSupportActionBar(toolbar);
+    }
+
+    public void setItemPedido(ItemPedido  it){
+        new PostItemPedidoTask(this, String.valueOf(pedido.getId()),it).execute();
+    }
 
     private void initilizeView() {
         lista_produtos = findViewById(R.id.lista_produto);

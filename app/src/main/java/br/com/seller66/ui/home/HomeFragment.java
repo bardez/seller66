@@ -26,6 +26,7 @@ import br.com.seller66.R;
 import br.com.seller66.adapter.ListaRotaAdapter;
 import br.com.seller66.model.Cliente;
 import br.com.seller66.model.Rota;
+import br.com.seller66.tasks.GetClientsTask;
 import br.com.seller66.tasks.GetRoutesTask;
 import br.com.seller66.ui.cliente.ClienteActivity;
 
@@ -53,6 +54,12 @@ public class HomeFragment extends Fragment {
             startActivity(intent);
         });
 
+        new GetRoutesTask(getActivity(), lista_rota, "1").execute();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         new GetRoutesTask(getActivity(), lista_rota, "1").execute();
     }
 }

@@ -9,29 +9,30 @@ import {
     resultEmpty
 } from '../../utils/response';
 const fields = [
-    'name'
+    'product_id',
+    "invoice_id",
+    "quantity"
 ]
-const getAll = async (req, res) =>{
+// const getAll = async (req, res) =>{
 
-  const result = await sequelize.query(`
-        SELECT
-           c.*
-        FROM
-            route_clients rc
-        INNER JOIN clients c ON
-          c.id = rc.client_id
-        GROUP BY c.id
-    `,{
-      type: sequelize.QueryTypes.SELECT
-    });
+//   const result = await sequelize.query(`
+//           SELECT
+//               * 
+//           FROM
+//             invoice_items it
+//           INNER JOIN products p ON
+//           p.id = it.product_id
+//     `,{
+//       type: sequelize.QueryTypes.SELECT
+//     });
     
 
-    if(result.length > 0){
-        resultSuccess('route', res)(result);
-    }else{
-        resultEmpty(res);
-    }
-}
+//     if(result.length > 0){
+//         resultSuccess('route', res)(result);
+//     }else{
+//         resultEmpty(res);
+//     }
+// }
 
 const getById = async (req, res) =>{
     if(req.params.invoice_id > 0){
@@ -64,7 +65,39 @@ const getById = async (req, res) =>{
     }
 }
 
+const save = async (req, res) =>{
+  try {
+      const invoiceItemData = req.body;
+
+      const invoiceItem = await InvoicesModel.create(invoiceItemData, { fields });
+
+      resultSuccess('Dados salvos com sucesso.', res)(invoiceItem);
+  } catch (error) {
+      console.log('InvoiceItemsController.save - Erro ao criar registro.', error);
+      resultError(HTTP.INTERNAL_SERVER_ERROR, 'Erro ao criar registro.', res)(error);
+  }
+}
+
+const upsert = async (req, res) =>{
+  try {
+      const invoiceItemsData = req.body;
+      const invoiceItems = await InvoicesItemsModel.findOne({ where: { invoice_id: req.params.id, product_id: invoiceItemsData.product_id } });
+
+      if(invoiceItems) {    
+          await invoiceItems.update(invoiceItemsData, { fields });
+          resultSuccess('Dados atualizados com sucesso.', res)(invoiceItems);
+      } else {
+        const invoiceItem = await InvoicesModel.create(invoiceItemData, { fields });
+        resultSuccess('Dados salvos com sucesso.', res)(invoiceItem);
+      }
+  } catch (error) {
+      console.log('InvoicesItemsController.update - Erro ao criar registro.', error);
+      resultError(HTTP.INTERNAL_SERVER_ERROR, 'Erro ao atualizar registro.', res)(error);
+  }
+}
+
 export default{
-    getAll,
-    getById
+    // getAll,
+    getById,
+    upsert
 }

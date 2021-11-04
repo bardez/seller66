@@ -9,5 +9,6 @@ const Router = express.Router();
 
 Router.route('/:invoice_id')
     .get([], InvoiceItemsController.getById)
+    .put([], InvoiceItemsController.upsert)
 
 module.exports = Router;

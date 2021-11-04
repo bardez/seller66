@@ -12,6 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import br.com.seller66.adapter.ListaClienteAdapter;
 import br.com.seller66.adapter.ListaRotaAdapter;
 import br.com.seller66.model.Rota;
 
@@ -86,5 +87,6 @@ public class GetRoutesTask extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String result) {
         pList.setAdapter(new ListaRotaAdapter(pContext, routes));
+        ((ListaRotaAdapter)pList.getAdapter()).notifyDataSetChanged();
     }
 }

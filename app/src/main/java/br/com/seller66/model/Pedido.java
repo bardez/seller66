@@ -11,6 +11,7 @@ public class Pedido implements Serializable {
     private float total;
     private int rota_id;
     private int cliente_id;
+    private String status;
 
     public int getId() {
         return id;
@@ -58,5 +59,13 @@ public class Pedido implements Serializable {
 
     public void setCliente_id(int cliente_id) {
         this.cliente_id = cliente_id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
