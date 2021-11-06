@@ -57,28 +57,28 @@ public class GetItemPedidoTask extends AsyncTask<String, String, String> {
                                         Log.i("SAIDA", "Id:" + jsonReader.nextInt());
                                     }
                                     prop = jsonReader.nextName();
-                                    if (prop.equals("product_id")) {
-                                        p.setId(jsonReader.nextInt());
-                                    }
-                                    prop = jsonReader.nextName();
                                     if (prop.equals("invoice_id")) {
                                         itemPedido.setInvoiceId(jsonReader.nextInt());
                                     }
                                     prop = jsonReader.nextName();
+                                    if (prop.equals("product_id")) {
+                                        p.setId(jsonReader.nextInt());
+                                    }
+                                    prop = jsonReader.nextName();
                                     if (prop.equals("quantity")) {
-                                        itemPedido.setQuantidade(jsonReader.nextLong());
+                                        itemPedido.setQuantidade(Float.parseFloat(jsonReader.nextString()));
                                     }
                                     prop = jsonReader.nextName();
                                     if (prop.equals("name")) {
                                         p.setDescricao(jsonReader.nextString());
                                     }
                                     prop = jsonReader.nextName();
-                                    if (prop.equals("status")) {
+                                    if (prop.equals("active")) {
                                         p.setStatus(jsonReader.nextInt());
                                     }
                                     prop = jsonReader.nextName();
                                     if (prop.equals("value")) {
-                                        p.setValue(jsonReader.nextLong());
+                                        p.setValue(Float.parseFloat(jsonReader.nextString()));
                                     }
                                 }
                                 jsonReader.endObject();
