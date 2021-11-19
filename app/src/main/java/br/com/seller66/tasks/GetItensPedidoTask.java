@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.util.JsonReader;
 import android.util.Log;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -15,19 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.seller66.adapter.ListaProdutoAdapter;
-import br.com.seller66.model.Cliente;
 import br.com.seller66.model.ItemPedido;
 import br.com.seller66.model.Produto;
 import br.com.seller66.ui.produto.ProdutoActivity;
 
-public class GetItemPedidoTask extends AsyncTask<String, String, String> {
+public class GetItensPedidoTask extends AsyncTask<String, String, String> {
 
-    BaseAdapter pContext;
+    Activity pContext;
     ItemPedido itemPedido;
-    ItemPedido itemPedidoSelecionado;
     List<ItemPedido> itens = new ArrayList<>();
 
-    public GetItemPedidoTask(BaseAdapter context, String pedido_id, String produto_id)
+    public GetItensPedidoTask(Activity context, String pedido_id, String produto_id)
     {
         pContext = context;
         AsyncTask.execute(() -> {
@@ -83,11 +80,7 @@ public class GetItemPedidoTask extends AsyncTask<String, String, String> {
                                         p.setValue(Float.parseFloat(jsonReader.nextString()));
                                     }
                                     itemPedido.setProduto(p);
-                                    if(!produto_id.isEmpty() && produto_id.equals(String.valueOf(itemPedido
-                                    .getProduto().getId()))){
-//                                        itemPedidoSelecionado = itemPedido;
-                                        ((ListaProdutoAdapter)pContext).setCurrentItemPedido(itemPedido);
-                                    }
+                                    itens.add(itemPedido);
                                 }
                                 jsonReader.endObject();
                             }
@@ -111,9 +104,9 @@ public class GetItemPedidoTask extends AsyncTask<String, String, String> {
     protected String doInBackground(String... strings) {
         return null;
     }
+
     @Override
     protected void onPostExecute(String result) {
-        if(itemPedidoSelecionado != null)
-            ((ListaProdutoAdapter)pContext).setCurrentItemPedido(itemPedido);
+        ((ProdutoActivity)pContext).setItensPedido(itens);
     }
 }

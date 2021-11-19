@@ -20,6 +20,8 @@ const getAll = async (req, res) =>{
             route_clients rc
         INNER JOIN clients c ON
           c.id = rc.client_id
+        WHERE
+          rc.visited = 0
         GROUP BY c.id
     `,{
       type: sequelize.QueryTypes.SELECT
@@ -43,7 +45,7 @@ const getById = async (req, res) =>{
           INNER JOIN clients c ON
             c.id = rc.client_id
           WHERE
-              rc.route_id = :route_id
+              rc.route_id = :route_id AND rc.visited = 0
             group by c.id
         `,{
             replacements:{

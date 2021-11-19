@@ -26,9 +26,12 @@ import br.com.seller66.model.ItemPedido;
 import br.com.seller66.model.Pedido;
 import br.com.seller66.model.Produto;
 import br.com.seller66.model.Rota;
+import br.com.seller66.tasks.GetItemPedidoTask;
+import br.com.seller66.tasks.GetItensPedidoTask;
 import br.com.seller66.tasks.GetProductsTask;
 import br.com.seller66.tasks.PostItemPedidoTask;
 import br.com.seller66.tasks.PostPedidoTask;
+import br.com.seller66.tasks.PutPedidoTask;
 import br.com.seller66.ui.cliente.ClienteActivity;
 import br.com.seller66.ui.confirmacao.ConfirmacaoActivity;
 import br.com.seller66.utils.IAsyncResponse;
@@ -49,7 +52,9 @@ public class ProdutoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_produto);
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> callConfirmationModal());
+        fab.setOnClickListener(view -> {
+            new GetItensPedidoTask(this, String.valueOf(pedido.getId()), "").execute();
+        });
 
         Intent intent = getIntent();
         cliente = (Cliente) intent.getSerializableExtra("cliente");
@@ -73,8 +78,13 @@ public class ProdutoActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
-    public void setItemPedido(ItemPedido  it){
+    public void putItemPedido(ItemPedido  it){
         new PostItemPedidoTask(this, String.valueOf(pedido.getId()),it).execute();
+    }
+
+    public void setItensPedido(List<ItemPedido> itens){
+        pedido.setItemList(itens);
+        callConfirmationModal();
     }
 
     private void initilizeView() {
@@ -101,14 +111,17 @@ public class ProdutoActivity extends AppCompatActivity {
         confirmationAlert.setView(confirmationView);
 
         List<String> itensPedido = new ArrayList<>();
-        pedido.getItemList().forEach(i -> itensPedido.add(i.getQuantidade()+" x " +i.getProduto().getDescricao()));
+        pedido.getItemList().forEach(i ->
+                itensPedido.add(i.getQuantidade()+" x " +i.getProduto().getDescricao()));
 
         lista_item_pedidos = confirmationView.findViewById(R.id.lista_item_pedido);
         lista_item_pedidos.setAdapter(new ListaItemPedidoAdapter(ProdutoActivity.this, itensPedido));
+        ((ListaItemPedidoAdapter)lista_item_pedidos.getAdapter()).notifyDataSetChanged();
 
         confirmationView.findViewById(R.id.cancel_button).setOnClickListener(v -> confirmationAlert.dismiss());
 
         confirmationView.findViewById(R.id.confirm_button).setOnClickListener(v -> {
+            new PutPedidoTask(this, pedido);
             confirmationAlert.dismiss();
             Intent intent = new Intent(ProdutoActivity.this, ConfirmacaoActivity.class);
             intent.putExtra("pedido", pedido);
@@ -119,5 +132,9 @@ public class ProdutoActivity extends AppCompatActivity {
 
     public String getPedidoId() {
         return String.valueOf(pedido.getId());
+    }
+
+    public void setItemsPedido(List<ItemPedido> itens) {
+        pedido.setItemList(itens);
     }
 }

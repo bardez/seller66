@@ -7,6 +7,7 @@ export default (sequelize, DataTypes) => {
         },
         route_id: DataTypes.INTEGER(),
         client_id: DataTypes.INTEGER(),
+        visited: DataTypes.INTEGER(),
     },{
         tableName: 'route_clients',
         timestamps: false,

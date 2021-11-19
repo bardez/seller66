@@ -89,7 +89,7 @@ public class ListaProdutoAdapter extends BaseAdapter {
         editTextQuantidade.setText(String.valueOf(currentQuantity));
 
         String pedido_id = ((ProdutoActivity)context).getPedidoId();
-        new GetItemPedidoTask(this, pedido_id).execute();
+        new GetItemPedidoTask(this, pedido_id, String.valueOf(produto.getId())).execute();
 
         addProdutoView.findViewById(R.id.plus).setOnClickListener(v -> {
             currentQuantity += 1;
@@ -109,7 +109,7 @@ public class ListaProdutoAdapter extends BaseAdapter {
             ItemPedido _itemPedido = new ItemPedido();
             _itemPedido.setProduto(produto);
             _itemPedido.setQuantidade(currentQuantity);
-            ((ProdutoActivity)context).setItemPedido(_itemPedido);
+            ((ProdutoActivity)context).putItemPedido(_itemPedido);
             currentQuantity = 0;
             quantityAlert.dismiss();
         });
@@ -119,5 +119,9 @@ public class ListaProdutoAdapter extends BaseAdapter {
     public void setCurrentItemPedido(ItemPedido itemPedido) {
         currentQuantity = itemPedido.getQuantidade();
         editTextQuantidade.setText(String.valueOf(currentQuantity));
+    }
+
+    public void setItensPedido(List<ItemPedido> itens) {
+        ((ProdutoActivity) context).setItemsPedido(itens);
     }
 }
