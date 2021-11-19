@@ -121,7 +121,7 @@ public class ProdutoActivity extends AppCompatActivity {
         confirmationView.findViewById(R.id.cancel_button).setOnClickListener(v -> confirmationAlert.dismiss());
 
         confirmationView.findViewById(R.id.confirm_button).setOnClickListener(v -> {
-            new PutPedidoTask(this, pedido);
+            new PutPedidoTask(this, pedido, rota).execute();
             confirmationAlert.dismiss();
             Intent intent = new Intent(ProdutoActivity.this, ConfirmacaoActivity.class);
             intent.putExtra("pedido", pedido);

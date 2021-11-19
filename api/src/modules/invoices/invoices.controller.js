@@ -1,5 +1,6 @@
 import {
-    InvoicesModel
+    InvoicesModel,
+    RouteClientsModel,
 } from '../../models'
 import HTTP from '../../utils/http_headers'
 import {
@@ -12,6 +13,11 @@ const fields = [
     'client_id',
     'date',
     'status'
+]
+const RCfields = [
+    'route_id',
+    'client_id',
+    'visited'
 ]
 
 // const getAll = async (req, res) =>{
@@ -76,11 +82,16 @@ const save = async (req, res) =>{
 const update = async (req, res) =>{
     try {
         const invoice = await InvoicesModel.findOne({ where: { id: req.params.id } });
-        console.log(invoice);
         if(invoice) {
             const invoiceData = req.body;
             console.log('=> => =>', invoiceData);
-            await invoice.update(invoiceData, { fields });
+            console.log('=> => =>', invoiceData['status']);
+            await invoice.update({"status": invoiceData['status']}, { fields });
+
+            const routeClients = await RouteClientsModel.findOne({where: {route_id: invoiceData['route_id'], client_id: invoiceData['client_id']}});
+            if(routeClients){
+              await routeClients.update({"visited": 1}, { RCfields });
+            }
             resultSuccess('Dados atualizados com sucesso.', res)(invoice);
         }
         

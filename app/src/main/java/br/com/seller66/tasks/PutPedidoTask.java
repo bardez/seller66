@@ -14,6 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import br.com.seller66.model.Pedido;
+import br.com.seller66.model.Rota;
 import br.com.seller66.ui.produto.ProdutoActivity;
 
 public class PutPedidoTask extends AsyncTask<String, String, String> {
@@ -21,7 +22,7 @@ public class PutPedidoTask extends AsyncTask<String, String, String> {
     Activity pContext;
     Pedido pedido;
 
-    public PutPedidoTask(Activity context, Pedido _pedido )
+    public PutPedidoTask(Activity context, Pedido _pedido, Rota _rota )
     {
         pContext = context;
         pedido = _pedido;
@@ -35,7 +36,7 @@ public class PutPedidoTask extends AsyncTask<String, String, String> {
                 conexao.setDoOutput(true);
                 conexao.setDoInput(true);
                 conexao.setRequestMethod("PUT");
-                String jsonInputString = "{\"status\": \"F\"}";
+                String jsonInputString = "{\"status\": \"F\", \"route_id\": "+_rota.getId()+", \"client_id\": "+pedido.getCliente_id()+"}";
                 try(OutputStream os = conexao.getOutputStream()) {
                     byte[] input = jsonInputString.getBytes("UTF-8");
                     os.write(input);
