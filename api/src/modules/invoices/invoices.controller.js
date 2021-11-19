@@ -76,10 +76,10 @@ const save = async (req, res) =>{
 const update = async (req, res) =>{
     try {
         const invoice = await InvoicesModel.findOne({ where: { id: req.params.id } });
-
+        console.log(invoice);
         if(invoice) {
             let { data: invoiceData } = req.body;
-            
+            console.log('=> => =>', req);
             await invoice.update(invoiceData, { fields });
             resultSuccess('Dados atualizados com sucesso.', res)(invoice);
         }
