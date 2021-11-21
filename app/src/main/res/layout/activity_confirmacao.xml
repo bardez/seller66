@@ -46,6 +46,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/btn_whatsapp"
                 android:backgroundTint="@color/design_default_color_secondary_variant"
                 android:text="Enviar pedido por whatsapp" />
             <Button
@@ -53,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_nova_rota"
                 android:backgroundTint="#990000"
-                android:text="acessar nova rota" />
+                android:text="Continuar rota" />
         </LinearLayout>
     </LinearLayout>
 

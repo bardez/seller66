@@ -125,6 +125,7 @@ public class ProdutoActivity extends AppCompatActivity {
             confirmationAlert.dismiss();
             Intent intent = new Intent(ProdutoActivity.this, ConfirmacaoActivity.class);
             intent.putExtra("pedido", pedido);
+            intent.putExtra("rota", rota);
             startActivity(intent);
         });
         confirmationAlert.show();
